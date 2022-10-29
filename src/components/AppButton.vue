@@ -1,0 +1,54 @@
+<template>
+  <button class="btn">
+    <slot />
+  </button>
+</template>
+
+<script>
+export default {
+  name: 'AppButtonComponent',
+}
+</script>
+
+<style lang="scss">
+.btn {
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgb(96, 107, 255);
+  cursor: pointer;
+  transition: 0.2s all;
+
+  &:hover {
+    background-color: rgb(73, 85, 255);
+  }
+  
+  &:disabled {
+    cursor: unset;
+    background-color: rgba(96, 106, 255, 0.5);
+  }
+
+  &:disabled:hover {
+    background-color: rgba(96, 106, 255, 0.5);
+  }
+
+  .btn__icon {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
+  }
+
+  .btn__icon.triangle {
+    -webkit-mask-image: url(@/assets/svg/triangle.svg);
+    mask-image: url(@/assets/svg/triangle.svg);
+    background-color: #fff;
+  }
+
+}
+</style>
