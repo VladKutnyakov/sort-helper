@@ -80,6 +80,7 @@ export default {
     border-right: 2px solid rgba(73, 85, 255);
     border-bottom: 2px solid rgba(73, 85, 255);
     border-left: 2px solid rgba(73, 85, 255);
+    background-color: rgba(255, 255, 255, 0.5);
     opacity: 0;
     transition: 0.2s all;
   }

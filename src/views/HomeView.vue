@@ -64,12 +64,11 @@ export default {
           if (chartItems[j] > chartItems[j + 1]) {
             let temp = chartItems[j]
             activeItem.value = temp
-            console.log(activeItem.value)
             chartItems[j] = chartItems[j + 1]
             chartItems[j + 1] = temp
+            
             if (!isAuto) {
               console.log('step')
-
             } else {
               await this.sleep(delay)
             }

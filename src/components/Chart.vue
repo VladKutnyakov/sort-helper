@@ -3,7 +3,10 @@
     <div
       class="chart__item"
       :class="{ 'chart__item_active': activeItem == item }"
-      :style="{ 'height': item * 20 + 'px' }"
+      :style="[
+      { 'height': item * 10 + 'px' },
+      { 'width': Math.round(100 / items.length) + 'px' },
+      ]"
       v-for="item in items"
       :key="item"
     >
@@ -33,13 +36,13 @@ export default {
 .chart {
   display: flex;
   align-items: flex-end;
+  max-width: 400px;
 
   .chart__item {
     position: relative;
-    margin: 0 3px 0 3px;
-    width: 10px;
+    margin: 0 2px 0 2px;
+    min-width: 1px;
     background-color: #000;
-    cursor: pointer;
 
     &:hover {
       background-color: rgb(255, 100, 100);

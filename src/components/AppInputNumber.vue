@@ -8,7 +8,7 @@
         class="field__input"
         type="number"
         :value="modelValue"
-        @input="handleInput($event)"
+        @change="handleInput($event)"
       />
       <div class="input-number__btn-group">
         <div class="input-number__btn" @click="increaseNubmer">
@@ -38,21 +38,20 @@ export default {
   methods: {
     increaseNubmer () {
       this.value++
-      this.value >= this.maxValue ? this.value = this.maxValue : null
+      this.value > this.maxValue ? this.value = this.maxValue : null
       this.$emit('update:modelValue', this.value)
     },
 
     decreaseNubmer () {
       this.value--
-      this.value <= this.minValue ? this.value = this.minValue : null
+      this.value < this.minValue ? this.value = this.minValue : null
       this.$emit('update:modelValue', this.value)
     },
 
     handleInput (event) {
-      console.log(event)
-      this.value = event.target.value
-      this.value >= this.maxValue ? this.value = this.maxValue : null
-      this.value <= this.minValue ? this.value = this.minValue : null
+      this.value = parseInt(event.target.value) || null
+      this.value > this.maxValue ? this.value = this.maxValue : null
+      this.value < this.minValue ? this.value = this.minValue : null
       this.$emit('update:modelValue', this.value)
     },
   }
