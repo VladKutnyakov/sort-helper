@@ -25,7 +25,7 @@
         </app-button>
         <app-input-number
           v-model="itemsNumber"
-          maxValue="20"
+          maxValue="50"
           minValue="2"
         >
           Размер выборки
@@ -93,7 +93,7 @@ export default {
   },
   watch: {
     itemsNumber () {
-      this.chartItems = this.items.slice(0, this.itemsNumber)
+      this.fillItemsArray()
     }
   },
   methods: {
@@ -114,6 +114,16 @@ export default {
     sortStep () {
       this.$emit('sortStep', this.chartItems, this.activeItem, false)
     },
+
+    fillItemsArray () {
+      this.chartItems = []
+      for (let i = 0; i < this.itemsNumber; i++) {
+        this.chartItems.push(i + 1)
+      }
+    }
+  },
+  created () {
+    this.fillItemsArray()
   }
 }
 </script>
