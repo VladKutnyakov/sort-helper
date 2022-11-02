@@ -76,6 +76,7 @@ export default {
       })
     },
 
+    //TODO: в ChartBlock.vue сделать выделение двух элементов - выбранного и минимального
     async selectionSort (items, delay) {
       this.isFinished = false
 
