@@ -8,13 +8,22 @@
         class="field__input"
         type="number"
         :value="modelValue"
+        :disabled="disabled"
         @change="handleInput($event)"
       />
       <div class="input-number__btn-group">
-        <div class="input-number__btn" @click="increaseNubmer">
+        <div
+          class="input-number__btn"
+          :class="{ 'input-number__btn_disabled': disabled }"
+          @click="increaseNubmer"
+        >
           <div class="input-number__btn-increase" />
         </div>
-        <div class="input-number__btn" @click="decreaseNubmer">
+        <div
+          class="input-number__btn"
+          :class="{ 'input-number__btn_disabled': disabled }"
+          @click="decreaseNubmer"
+        >
           <div class=" input-number__btn-decrease" />
         </div>
       </div>
@@ -29,6 +38,7 @@ export default {
     modelValue: [Number, String],
     maxValue: [Number, String],
     minValue: [Number, String],
+    disabled: Boolean,
   },
   data () {
     return {
@@ -37,15 +47,19 @@ export default {
   },
   methods: {
     increaseNubmer () {
-      this.value++
-      this.value > this.maxValue ? this.value = this.maxValue : null
-      this.$emit('update:modelValue', this.value)
+      if (!this.disabled) {
+        this.value++
+        this.value > this.maxValue ? this.value = this.maxValue : null
+        this.$emit('update:modelValue', this.value)
+      }
     },
 
     decreaseNubmer () {
-      this.value--
-      this.value < this.minValue ? this.value = this.minValue : null
-      this.$emit('update:modelValue', this.value)
+      if (!this.disabled) {
+        this.value--
+        this.value < this.minValue ? this.value = this.minValue : null
+        this.$emit('update:modelValue', this.value)
+      }
     },
 
     handleInput (event) {
@@ -98,6 +112,7 @@ export default {
 
       .input-number__btn {
         background-color: rgb(96, 107, 255);
+        cursor: pointer;
 
         &:hover {
           background-color: rgb(73, 85, 255);
@@ -111,6 +126,14 @@ export default {
           border-radius: 0 0 12px 0;
         }
 
+        &.input-number__btn_disabled {
+          cursor: initial;
+
+          &:hover {
+            background-color: rgb(96, 107, 255);
+          }
+        }
+
         .input-number__btn-increase,
         .input-number__btn-decrease {
           width: 20px;
@@ -120,7 +143,6 @@ export default {
           -webkit-mask-repeat: no-repeat;
           -webkit-mask-size: cover;
           background-color: #fff;
-          cursor: pointer;
         }
 
         .input-number__btn-increase {

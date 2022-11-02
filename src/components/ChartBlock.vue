@@ -6,34 +6,36 @@
       </div>
       <div class="info__btn-group">
         <app-button
-          :disabled="isActive" 
+          :disabled="!isFinished" 
           @click="sortStart($event)"
         >
           <div class="btn__icon triangle" />
         </app-button>
         <app-button
-          :disabled="isActive"
-          @click="sortStep"
+          :disabled="!isFinished"
+          @click="sortStep($event)"
         >
           Шаг
         </app-button>
         <app-button
-          :disabled="isActive" 
+          :disabled="!isFinished" 
           @click="shuffleItems()"
         >
           Перемешать
         </app-button>
         <app-input-number
-          v-model="itemsNumber"
+          v-model="itemsNumberLocal"
           maxValue="50"
           minValue="2"
+          :disabled="!isFinished" 
         >
           Размер выборки
         </app-input-number>
         <app-input-number
-          v-model="delay"
+          v-model="delayLocal"
           maxValue="5000"
           minValue="10"
+          :disabled="!isFinished"
         >
           Задержка (мс)
         </app-input-number>
@@ -58,7 +60,10 @@
     </div>
     
     <div class="chart-block__content">
-      <chart :items="chartItems" :activeItem="activeItem.value" />
+      <chart
+        :items="items"
+        :activeItem="activeItem"
+      />
     </div>
   </div>
 </template>
@@ -78,47 +83,45 @@ export default {
     AppInputNumber,
   },
   props: {
-    items: Array,
+    itemsNumber: Number,
+    activeItem: Number,
+    delay: Number,
+    isFinished: Boolean,
+    step: Object,
   },
   data () {
     return {
-      chartItems: this.items,
-      activeItem: {
-        value: null,
-      },
-      isActive: false,
-      itemsNumber: 20,
-      delay: 50,
+      items: [],
+      itemsNumberLocal: this.itemsNumber,
+      delayLocal: this.delay,
     }
   },
   watch: {
-    itemsNumber () {
+    itemsNumberLocal () {
       this.fillItemsArray()
     }
   },
   methods: {
     shuffleItems () {
-      this.chartItems = this.chartItems
+      this.items = this.items
         .map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value)
-      this.activeItem.value = null
+      this.$emit('onShuffle')
     },
 
-    async sortStart () {
-      this.isActive = true
-      this.$emit('sortStart', this.chartItems, this.activeItem, true, this.delay)
-      this.isActive = false
+    sortStart () {
+      this.$emit('sortStart', this.items, this.delayLocal)
     },
 
     sortStep () {
-      this.$emit('sortStep', this.chartItems, this.activeItem, false)
+      this.$emit('sortStep', this.items)
     },
 
     fillItemsArray () {
-      this.chartItems = []
-      for (let i = 0; i < this.itemsNumber; i++) {
-        this.chartItems.push(i + 1)
+      this.items = []
+      for (let i = 0; i < this.itemsNumberLocal; i++) {
+        this.items.push(i + 1)
       }
     }
   },
@@ -136,10 +139,15 @@ export default {
   padding: 32px 48px;
   border-radius: 20px;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  transition: 0.2s all;
+
+  &:hover {
+    box-shadow: 0px 5px 15px 7px rgba(34, 60, 80, 0.2);
+  }
 
   .chart-block__info {
-    margin: 0 128px 0 0;
-    flex: 1 1 80%;
+    margin: 0 64px 0 0;
+    flex: 1 1 70%;
 
     .info__title {
       padding: 16px 0;
@@ -174,9 +182,6 @@ export default {
     .info__complexity {
       padding: 16px 0 0 0;
       font-weight: 700;
-
-      .complexity__formula {
-      }
     }
 
     .info__source-code {
@@ -188,7 +193,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    flex: 1 1 20%;
+    flex: 1 1 30%;
   }
 }
 

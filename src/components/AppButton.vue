@@ -40,13 +40,15 @@ export default {
     height: 24px;
     background-size: cover;
     background-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-size: cover;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: cover;
   }
 
   .btn__icon.triangle {
-    -webkit-mask-image: url(@/assets/svg/triangle.svg);
     mask-image: url(@/assets/svg/triangle.svg);
+    -webkit-mask-image: url(@/assets/svg/triangle.svg);
     background-color: #fff;
   }
 

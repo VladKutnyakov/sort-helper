@@ -1,7 +1,12 @@
 <template>
   <chart-block
-    :items="items"
+    :itemsNumber="itemsNumber"
+    :activeItem="activeItem"
+    :delay="delay"
+    :isFinished="isFinished"
     @sortStart="bubbleSort"
+    @sortStep="bubbleSortStep"
+    @onShuffle="resetActiveItem"
   >
     <template #title>
       Сортировка пузырьком
@@ -37,34 +42,28 @@ function bubbleSort(array) {
 import ChartBlock from '@/components/ChartBlock.vue'
 
 export default {
-  name: 'BubbleChartBlock',
+  name: 'ChartBlockBubble',
   components: {
     ChartBlock,
   },
-  props: {
-
-  },
   data () {
     return {
-      items: [],
-      activeItem: {
-        value: null,
+      activeItem: null,
+      step: {
+        i: 0,
+        j: 0,
       },
-      isActive: false,
+      isFinished: true,
       itemsNumber: 30,
       delay: 20,
     }
   },
-  watch: {
-    itemsNumber () {
-      this.$emit()
-    }
-  },
   methods: {
-    fillItemsArray () {
-      this.chartItems = []
-      for (let i = 0; i < this.itemsNumber; i++) {
-        this.chartItems.push(i + 1)
+    resetActiveItem () {
+      this.activeItem = null
+      this.step = {
+        i: 0,
+        j: 0,
       }
     },
 
@@ -74,36 +73,43 @@ export default {
       })
     },
 
-    async bubbleSort (items, activeItem, isAuto, delay) {
-      for (let i = 0; i < this.items.length; i++) {
+    async bubbleSort (items, delay) {
+      this.isFinished = false
+
+      for (let i = 0; i < items.length; i++) {
         for (let j = 0; j < items.length; j++) {
           if (items[j] > items[j + 1]) {
             let temp = items[j]
-            activeItem.value = temp
             items[j] = items[j + 1]
             items[j + 1] = temp
-            
-            if (!isAuto) {
-              console.log('step')
-            } else {
-              await this.sleep(delay)
-            }
+
+            this.activeItem = temp
+
+            await this.sleep(delay)
           }
         }
       }
+
+      this.isFinished = true
     },
 
-    shuffleItems () {
-      this.items = this.items
-        .map(value => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value)
-      this.activeItem.value = null
+    bubbleSortStep (items) {
+      if (items[this.step.j] > items[this.step.j + 1]) {
+        let temp = items[this.step.j]
+        items[this.step.j] = items[this.step.j + 1]
+        items[this.step.j + 1] = temp
+        
+        this.activeItem = temp
+      }
+
+      if (this.step.j++ >= items.length) {
+        this.step.j = 0
+        if (this.step.i++ >= items.length) {
+          this.isFinished = true
+        }
+      }
     },
   },
-  created () {
-    this.fillItemsArray()
-  }
 }
 </script>
 

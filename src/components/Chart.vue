@@ -1,18 +1,18 @@
 <template>
   <div class="chart">
     <div
+      v-for="item in items"
+      :key="item"
       class="chart__item"
       :class="{ 'chart__item_active': activeItem == item }"
       :style="[
-      { 'height': item * 10 + 'px' },
-      { 'width': Math.round(100 / items.length) + 'px' },
+        { 'height': item * 10 + 'px' },
+        { 'width': Math.round(100 / items.length) + 'px' },
       ]"
-      v-for="item in items"
-      :key="item"
     >
-    <div class="item__value">
-      {{ item }}
-    </div>
+      <div class="item__value">
+        {{ item }}
+      </div>
     </div>
   </div>
 </template>
