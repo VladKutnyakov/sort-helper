@@ -1,10 +1,12 @@
 <template>
   <chart-block
     :itemsNumber="itemsNumber"
-    :activeItem="activeItem"
+    :swappedItem="swappedItem"
+    :choosenItem="choosenItem"
     :delay="delay"
     :isFinished="isFinished"
     @sortStart="bubbleSort"
+    @sortStop="bubbleSortStop"
     @sortStep="bubbleSortStep"
     @onShuffle="resetActiveItem"
   >
@@ -48,7 +50,8 @@ export default {
   },
   data () {
     return {
-      activeItem: null,
+      swappedItem: null,
+      choosenItem: null,
       step: {
         i: 0,
         j: 0,
@@ -60,7 +63,8 @@ export default {
   },
   methods: {
     resetActiveItem () {
-      this.activeItem = null
+      this.swappedItem = null
+      this.choosenItem = null
       this.step = {
         i: 0,
         j: 0,
@@ -76,30 +80,24 @@ export default {
     async bubbleSort (items, delay) {
       this.isFinished = false
 
-      for (let i = 0; i < items.length; i++) {
-        for (let j = 0; j < items.length; j++) {
-          if (items[j] > items[j + 1]) {
-            let temp = items[j]
-            items[j] = items[j + 1]
-            items[j + 1] = temp
-
-            this.activeItem = temp
-
-            await this.sleep(delay)
-          }
-        }
+      while (!this.isFinished) {
+        this.bubbleSortStep(items)
+        await this.sleep(delay)
       }
+    },
 
+    bubbleSortStop () {
       this.isFinished = true
     },
 
     bubbleSortStep (items) {
+      this.choosenItem = items[this.step.j]
+
       if (items[this.step.j] > items[this.step.j + 1]) {
-        let temp = items[this.step.j]
-        items[this.step.j] = items[this.step.j + 1]
-        items[this.step.j + 1] = temp
-        
-        this.activeItem = temp
+        this.swappedItem = items[this.step.j + 1]
+
+        items[this.step.j + 1] = items[this.step.j]
+        items[this.step.j] = this.swappedItem
       }
 
       if (this.step.j++ >= items.length) {

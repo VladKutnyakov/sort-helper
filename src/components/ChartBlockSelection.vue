@@ -1,10 +1,12 @@
 <template>
   <chart-block
     :itemsNumber="itemsNumber"
-    :activeItem="activeItem"
+    :swappedItem="swappedItem"
+    :choosenItem="choosenItem"
     :delay="delay"
     :isFinished="isFinished"
     @sortStart="selectionSort"
+    @sortStop="selectionSortStop"
     @sortStep="selectionSortStep"
     @onShuffle="resetActiveItem"
   >
@@ -12,7 +14,7 @@
       Сортировка выбором
     </template>
     <template #description>
-      Сортировка выбором является одним из простейших алгоритмов. Его суть — за каждый проход по массиву выбрать минимальный элемент (для сортировки по возрастанию) и поменять его местами с первым элементом в еще не отсортированном участке массива, тем самым уменьшив длину этого участка на один, и так до тех пор пока не будут отсортированы все элементы. Представленный алгоритм является простейшим, и может быть усовершенствован.
+      Сортировка выбором является одним из простейших алгоритмов. Его суть — за каждый проход по массиву выбрать минимальный элемент (для сортировки по возрастанию) и поменять его местами с первым элементом в еще не отсортированном участке массива, тем самым уменьшив длину этого участка на один, и так до тех пор пока не будут отсортированы все элементы.
     </template>
     <template #complexity>
       O(n<sup>2</sup>)
@@ -45,28 +47,32 @@ function selectionSort(array) {
 import ChartBlock from '@/components/ChartBlock.vue'
 
 export default {
-  name: 'ChartBlockBubble',
+  name: 'ChartBlockSelection',
   components: {
     ChartBlock,
   },
   data () {
     return {
-      activeItem: null,
+      swappedItem: null,
+      choosenItem: null,
       step: {
         i: 0,
-        j: 0,
+        j: 1,
       },
       isFinished: true,
       itemsNumber: 30,
       delay: 20,
+      minItemIndex: null,
     }
   },
   methods: {
     resetActiveItem () {
-      this.activeItem = null
+      this.swappedItem = null
+      this.choosenItem = null
+      this.minItemIndex = null
       this.step = {
         i: 0,
-        j: 0,
+        j: 1,
       }
     },
 
@@ -76,49 +82,47 @@ export default {
       })
     },
 
-    //TODO: в ChartBlock.vue сделать выделение двух элементов - выбранного и минимального
     async selectionSort (items, delay) {
       this.isFinished = false
 
-      for (let i = 0; i < items.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < items.length; j++) {
-            if (items[min] > items[j]) {
-                min = j;
-            }
-        }
-        if (i != min) {
-          let temp = items[i]
-          items[i] = items[min]
-          items[min] = temp
-
-          this.activeItem = temp
-
-          await this.sleep(delay)
-        }
+      while (!this.isFinished) {
+        this.selectionSortStep(items)
+        await this.sleep(delay)
       }
+    },
 
+    selectionSortStop () {
       this.isFinished = true
     },
 
     selectionSortStep (items) {
-      let min = this.step.i;
-        for (let j = this.step.i + 1; j < items.length; j++) {
-            if (items[min] > items[j]) {
-                min = j;
-            }
-        }
-        if (this.step.i != min) {
-          let temp = items[this.step.i]
-          items[this.step.i] = items[min]
-          items[min] = temp
+      this.choosenItem = items[this.step.j]
 
-          this.activeItem = temp
+      if (!this.minItemIndex) {
+        this.minItemIndex = this.step.i
+      }
+
+      if (items[this.minItemIndex] > items[this.step.j]) {
+          this.minItemIndex = this.step.j
+      }
+
+      this.step.j++
+
+      if (this.step.j >= items.length) {
+        this.step.j = this.step.i + 1
+        if (this.step.i != this.minItemIndex) {
+          this.swappedItem = items[this.minItemIndex]
+          
+          items[this.minItemIndex] = items[this.step.i]
+          items[this.step.i] = this.swappedItem
         }
         
-        if (this.step.i++ >= items.length) {
+        this.step.i++
+        this.minItemIndex = this.step.i
+        if (this.step.i >= items.length) {
           this.isFinished = true
         }
+      }
     },
   },
 }

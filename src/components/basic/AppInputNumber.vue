@@ -1,5 +1,8 @@
 <template>
-  <div class="input-number">
+  <div
+    class="input-number"
+    :class="{ 'input-number_disabled': disabled }"
+  >
     <div class="input-number__label">
       <slot />
     </div>
@@ -10,7 +13,7 @@
         :value="modelValue"
         :disabled="disabled"
         @change="handleInput($event)"
-      />
+      >
       <div class="input-number__btn-group">
         <div
           class="input-number__btn"
@@ -77,6 +80,18 @@ export default {
   max-width: 128px;
   border-radius: 16px;
 
+  &.input-number_disabled {
+
+    .input-number__field {
+
+      .field__input {
+        border-top: 2px solid rgb(96, 106, 255, 0.5);
+        border-bottom: 2px solid rgb(96, 106, 255, 0.5);
+        border-left: 2px solid rgb(96, 106, 255, 0.5);
+      }
+    }
+  }
+
   .input-number__label {
     padding: 0 0 2px 0;
     font-size: 14px;
@@ -89,9 +104,9 @@ export default {
       width: 100%;
       padding: 4px 8px;
       font-size: 24px;
-      border-top: 2px solid rgb(96, 107, 255);
-      border-bottom: 2px solid rgb(96, 107, 255);
-      border-left: 2px solid rgb(96, 107, 255);
+      border-top: 2px solid rgba(96, 106, 255);
+      border-bottom: 2px solid rgba(96, 106, 255);
+      border-left: 2px solid rgba(96, 106, 255);
       border-right: none;
       border-radius: 16px 0 0 16px;
       -moz-appearance: textfield;
@@ -111,8 +126,9 @@ export default {
       width: 26px;
 
       .input-number__btn {
-        background-color: rgb(96, 107, 255);
+        background-color: rgb(96, 106, 255);
         cursor: pointer;
+        transition: 0.2s all;
 
         &:hover {
           background-color: rgb(73, 85, 255);
@@ -127,10 +143,11 @@ export default {
         }
 
         &.input-number__btn_disabled {
+          background-color: rgba(96, 106, 255, 0.5);
           cursor: initial;
 
           &:hover {
-            background-color: rgb(96, 107, 255);
+            background-color: rgba(96, 106, 255, 0.5);
           }
         }
 
@@ -140,8 +157,8 @@ export default {
           height: 20px;
           background-size: cover;
           background-repeat: no-repeat;
-          -webkit-mask-repeat: no-repeat;
-          -webkit-mask-size: cover;
+          mask-repeat: no-repeat;
+          mask-size: cover;
           background-color: #fff;
         }
 

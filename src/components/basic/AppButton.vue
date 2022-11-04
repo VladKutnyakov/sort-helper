@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'AppButtonComponent',
+  name: 'AppButton',
 }
 </script>
 
@@ -42,14 +42,20 @@ export default {
     background-repeat: no-repeat;
     mask-repeat: no-repeat;
     mask-size: cover;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: cover;
-  }
+    mask-repeat: no-repeat;
+    mask-size: cover;
 
-  .btn__icon.triangle {
-    mask-image: url(@/assets/svg/triangle.svg);
-    -webkit-mask-image: url(@/assets/svg/triangle.svg);
-    background-color: #fff;
+    &.triangle {
+      mask-image: url(@/assets/svg/triangle.svg);
+      -webkit-mask-image: url(@/assets/svg/triangle.svg);
+      background-color: #fff;
+    }
+
+    &.square {
+      mask-image: url(@/assets/svg/square.svg);
+      -webkit-mask-image: url(@/assets/svg/square.svg);
+      background-color: #fff;
+    }
   }
 
 }

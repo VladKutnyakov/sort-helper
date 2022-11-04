@@ -4,7 +4,10 @@
       v-for="item in items"
       :key="item"
       class="chart__item"
-      :class="{ 'chart__item_active': activeItem == item }"
+      :class="[
+        { 'chart__item_swapped': swappedItem == item },
+        { 'chart__item_choosen': choosenItem == item }
+      ]"
       :style="[
         { 'height': item * 10 + 'px' },
         { 'width': Math.round(100 / items.length) + 'px' },
@@ -19,10 +22,11 @@
 
 <script>
 export default {
-  name: 'ChartComponent',
+  name: 'Chart',
   props: {
     items: Array,
-    activeItem: Number,
+    swappedItem: Number,
+    choosenItem: Number,
   },
   data () {
     return {
@@ -41,15 +45,53 @@ export default {
   .chart__item {
     position: relative;
     margin: 0 2px 0 2px;
-    min-width: 1px;
+    min-width: 3px;
     background-color: #000;
 
     &:hover {
       background-color: rgb(255, 100, 100);
     }
 
-    &.chart__item_active {
-      background-color: rgb(255, 100, 100);
+    &.chart__item_swapped {
+      background-color: rgb(255, 0, 0);
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: -12px;
+        left: -2px;
+        width: 8px;
+        height: 8px;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(@/assets/svg/triangle.svg);
+        -webkit-mask-image: url(@/assets/svg/triangle.svg);
+        background-color: rgb(255, 0, 0);
+      }
+    }
+
+    &.chart__item_choosen {
+      background-color: rgb(0, 0, 255);
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: -12px;
+        left: -2px;
+        width: 8px;
+        height: 8px;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(@/assets/svg/triangle.svg);
+        -webkit-mask-image: url(@/assets/svg/triangle.svg);
+        background-color: rgb(0, 0, 255);
+      }
     }
 
     &:hover > .item__value {
@@ -59,8 +101,8 @@ export default {
     .item__value {
       position: absolute;
       display: none;
-      bottom: -20px;
-      left: 0;
+      bottom: -28px;
+      left: -2px;
       font-size: 12px;
     }
   }

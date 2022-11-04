@@ -1,9 +1,18 @@
 <template>
-  <div class="spoiler" :class=" { 'spoiler_active': isActive }">
-    <div class="spoiler__label" @click="toggleSpoiler()">
+  <div
+    class="spoiler" 
+    :class=" { 'spoiler_active': isActive }"
+  >
+    <div
+      class="spoiler__label"
+      @click="toggleSpoiler()"
+    >
       <slot name="label" />
     </div>
-    <div class="spoiler__content" v-show="isActive">
+    <div
+      v-show="isActive"
+      class="spoiler__content"
+    >
       <slot name="content" />
     </div>
   </div>
@@ -11,7 +20,7 @@
 
 <script>
 export default {
-  name: 'AppSpoilerComponent',
+  name: 'AppSpoiler',
   data () {
     return {
       isActive: false,
@@ -54,6 +63,7 @@ export default {
     border-radius: 16px;
     color: #fff;
     background-color: rgb(96, 107, 255);
+    font-weight: 600;
     cursor: pointer;
     transition: 0.2s all;
 
@@ -65,7 +75,7 @@ export default {
       content: '';
       -webkit-mask: url(@/assets/svg/triangle.svg) no-repeat 50% 50%;
       mask: url(@/assets/svg/triangle.svg) no-repeat 50% 50%;
-      -webkit-mask-size: cover;
+      mask-size: cover;
       mask-size: cover;
       width: 16px;
       height: 16px;

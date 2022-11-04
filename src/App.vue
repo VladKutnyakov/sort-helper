@@ -1,12 +1,20 @@
 <template>
-  <div class="content">
-    <router-view />
+  <div class="layout">
+    <div class="content">
+      <router-view />
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from '@/components/common/Footer.vue'
+
 export default {
   name: 'App',
+  components: {
+    Footer,
+  },
 }
 </script>
 
@@ -15,13 +23,15 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #8ec5fc85;
-  background-image: linear-gradient(62deg, #8ec6ff9a 0%, #e0c3fc71 100%);
+  background: rgb(60,59,86);
+  background: linear-gradient(0deg, rgba(60,59,86,0.3449754901960784) 5%, rgba(238,238,238,1) 10%);
 
-  .content {
-    padding: 5%;
+  .layout {
     font-family: 'Noto Sans', sans-serif;
-    font-weight: 600;
+
+    .content {
+      padding: 5%;
+    }
   }
 }
 </style>
