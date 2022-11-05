@@ -93,6 +93,7 @@ export default {
     selectionSortStep (items) {
       this.choosenItem = items[this.step.i]
       this.step.j = this.step.i
+
       while (this.step.j > 0 && items[this.step.j - 1] > this.choosenItem) {
           console.log(this.step.j, items[this.step.j - 1], this.choosenItem)
           items[this.step.j] = items[this.step.j - 1]
@@ -100,7 +101,7 @@ export default {
       }
       items[this.step.j] = this.choosenItem
 
-      if (this.step.j <= 0 && items[this.step.j - 1] < this.choosenItem)
+      if (this.step.j <= 0 && items[this.step.j - 1] <= this.choosenItem)
         if (this.step.i++ >= items.length) {
           this.isFinished = true
         }

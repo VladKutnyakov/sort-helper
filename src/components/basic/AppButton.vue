@@ -51,9 +51,9 @@ export default {
       background-color: #fff;
     }
 
-    &.square {
-      mask-image: url(@/assets/svg/square.svg);
-      -webkit-mask-image: url(@/assets/svg/square.svg);
+    &.pause {
+      mask-image: url(@/assets/svg/pause.svg);
+      -webkit-mask-image: url(@/assets/svg/pause.svg);
       background-color: #fff;
     }
   }

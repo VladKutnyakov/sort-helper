@@ -18,7 +18,7 @@
             :disabled="isFinished" 
             @click="sortStop($event)"
           >
-            <div class="btn__icon square" />
+            <div class="btn__icon pause" />
           </app-button>
           <app-button
             :disabled="!isFinished"
