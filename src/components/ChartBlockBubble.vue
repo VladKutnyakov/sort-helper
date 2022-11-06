@@ -1,5 +1,6 @@
 <template>
   <chart-block
+    id="bubble-sort"
     :itemsNumber="itemsNumber"
     :swappedItem="swappedItem"
     :choosenItem="choosenItem"

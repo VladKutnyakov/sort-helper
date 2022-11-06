@@ -1,5 +1,6 @@
 <template>
   <chart-block
+    id="selection-sort"
     :itemsNumber="itemsNumber"
     :swappedItem="swappedItem"
     :choosenItem="choosenItem"

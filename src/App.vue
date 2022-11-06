@@ -1,19 +1,33 @@
 <template>
-  <div class="layout">
-    <div class="content">
-      <router-view />
-    </div>
-    <Footer />
-  </div>
+  <component :is="layout" />
 </template>
 
 <script>
-import Footer from '@/components/common/Footer.vue'
+import DefaultLayout from "@/layouts/Default.vue";
+import EmptyLayout from "@/layouts/Empty.vue";
 
 export default {
   name: 'App',
   components: {
-    Footer,
+    DefaultLayout,
+    EmptyLayout,
+  },
+  data() {
+    return {
+      layout: "DefaultLayout",
+    };
+  },
+  watch: {
+    $route(route) {
+      switch (route.name) {
+        case "NotFound":
+          this.layout = "EmptyLayout";
+          break;
+        default:
+          this.layout = "DefaultLayout";
+          break;
+      }
+    },
   },
 }
 </script>
@@ -23,15 +37,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: rgb(60,59,86);
-  background: linear-gradient(0deg, rgba(60,59,86,0.3449754901960784) 5%, rgba(238,238,238,1) 10%);
-
-  .layout {
-    font-family: 'Noto Sans', sans-serif;
-
-    .content {
-      padding: 5%;
-    }
-  }
+  font-family: 'Noto Sans', sans-serif;
 }
 </style>
