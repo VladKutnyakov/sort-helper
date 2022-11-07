@@ -23,7 +23,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: process.env.NODE_ENV === "production" ? createWebHistory('/sort-helper/') : createWebHistory(),
   routes
 })
 
