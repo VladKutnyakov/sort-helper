@@ -46,8 +46,8 @@ export default {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background: rgb(60,59,86);
-  background: linear-gradient(0deg, rgba(60,59,86,0.3449754901960784) 5%, rgba(238,238,238,1) 10%);
+  background: rgb(60, 59, 86);
+  background: linear-gradient(0deg, rgba(60, 59, 86, 0.3449754901960784) 5%, rgba(238, 238, 238, 1) 10%);
 
   .content {
     padding: 5%;

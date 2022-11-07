@@ -28,7 +28,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 0 0 32px 0;
+  padding: 0 0 16px 0;
   color: rgba(36, 32, 32, 0.8);
   font-size: 16px;
 

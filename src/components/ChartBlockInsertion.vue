@@ -2,13 +2,13 @@
   <chart-block
     id="insertion-sort"
     :itemsNumber="itemsNumber"
-    :swappedItem="swappedItem"
-    :choosenItem="choosenItem"
+    :swappedItemIndex="swappedItemIndex"
+    :choosenItemIndex="choosenItemIndex"
     :delay="delay"
     :isFinished="isFinished"
-    @sortStart="selectionSort"
-    @sortStop="selectionSortStop"
-    @sortStep="selectionSortStep"
+    @sortStart="insertionSort"
+    @sortStop="insertionSortStop"
+    @sortStep="insertionSortStep"
     @onShuffle="resetActiveItem"
   >
     <template #title>
@@ -48,8 +48,8 @@ export default {
   },
   data () {
     return {
-      swappedItem: null,
-      choosenItem: null,
+      swappedItemIndex: null,
+      choosenItemIndex: null,
       step: {
         i: 1,
         j: 0,
@@ -57,14 +57,16 @@ export default {
       isFinished: true,
       itemsNumber: 30,
       delay: 20,
-      minItemIndex: null,
+      isLowerItemFound: true,
+      currentItem: null,
     }
   },
   methods: {
     resetActiveItem () {
-      this.swappedItem = null
-      this.choosenItem = null
-      this.minItemIndex = null
+      this.swappedItemIndex = null
+      this.choosenItemIndex = null
+      this.isLowerItemFound = true
+      this.currentItem = null
       this.step = {
         i: 1,
         j: 0,
@@ -77,35 +79,41 @@ export default {
       })
     },
 
-    async selectionSort (items, delay) {
+    async insertionSort (items, delay) {
       this.isFinished = false
 
       while (!this.isFinished) {
-        this.selectionSortStep(items)
+        this.insertionSortStep(items)
         await this.sleep(delay)
       }
     },
 
-    selectionSortStop () {
+    insertionSortStop () {
       this.isFinished = true
     },
 
     // TODO: Доделать
-    selectionSortStep (items) {
-      this.choosenItem = items[this.step.i]
-      this.step.j = this.step.i
-
-      while (this.step.j > 0 && items[this.step.j - 1] > this.choosenItem) {
-          console.log(this.step.j, items[this.step.j - 1], this.choosenItem)
+    insertionSortStep (items) {
+      if (this.step.i < items.length) {
+        if (this.isLowerItemFound) {
+          this.choosenItemIndex = this.step.i
+          this.currentItem = items[this.step.i]
+          this.step.j = this.step.i
+          this.isLowerItemFound = false
+        }
+        if (this.step.j > 0 && items[this.step.j - 1] > this.currentItem) {
+          this.swappedItemIndex = this.step.j
           items[this.step.j] = items[this.step.j - 1]
           this.step.j--
-      }
-      items[this.step.j] = this.choosenItem
-
-      if (this.step.j <= 0 && items[this.step.j - 1] <= this.choosenItem)
-        if (this.step.i++ >= items.length) {
-          this.isFinished = true
+        } else {
+          this.swappedItemIndex = this.step.j
+          items[this.step.j] = this.currentItem
+          this.step.i++
+          this.isLowerItemFound = true
         }
+      } else {
+        this.insertionSortStop()
+      }
     },
   },
 }

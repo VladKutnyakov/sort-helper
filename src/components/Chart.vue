@@ -1,12 +1,12 @@
 <template>
   <div class="chart">
     <div
-      v-for="item in items"
-      :key="item"
+      v-for="(item, index) in items"
+      :key="index"
       class="chart__item"
       :class="[
-        { 'chart__item_swapped': swappedItem == item },
-        { 'chart__item_choosen': choosenItem == item }
+        { 'chart__item_swapped': swappedItemIndex == index },
+        { 'chart__item_choosen': choosenItemIndex == index }
       ]"
       :style="[
         { 'height': item * 10 + 'px' },
@@ -25,8 +25,8 @@ export default {
   name: 'Chart',
   props: {
     items: Array,
-    swappedItem: Number,
-    choosenItem: Number,
+    swappedItemIndex: Number,
+    choosenItemIndex: Number,
   },
   data () {
     return {

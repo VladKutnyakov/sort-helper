@@ -17,17 +17,17 @@
       <div class="input-number__btn-group">
         <div
           class="input-number__btn"
-          :class="{ 'input-number__btn_disabled': disabled }"
+          :class="{ 'input-number__btn_disabled': disabled || value >= maxValue }"
           @click="increaseNubmer"
         >
           <div class="input-number__btn-increase" />
         </div>
         <div
           class="input-number__btn"
-          :class="{ 'input-number__btn_disabled': disabled }"
+          :class="{ 'input-number__btn_disabled': disabled || value <= minValue }"
           @click="decreaseNubmer"
         >
-          <div class=" input-number__btn-decrease" />
+          <div class="input-number__btn-decrease" />
         </div>
       </div>
     </div>
@@ -85,9 +85,7 @@ export default {
     .input-number__field {
 
       .field__input {
-        border-top: 2px solid rgb(96, 106, 255, 0.5);
-        border-bottom: 2px solid rgb(96, 106, 255, 0.5);
-        border-left: 2px solid rgb(96, 106, 255, 0.5);
+        border: 2px solid rgb(96, 106, 255, 0.5);
       }
     }
   }
@@ -104,10 +102,7 @@ export default {
       width: 100%;
       padding: 4px 8px;
       font-size: 24px;
-      border-top: 2px solid rgba(96, 106, 255);
-      border-bottom: 2px solid rgba(96, 106, 255);
-      border-left: 2px solid rgba(96, 106, 255);
-      border-right: none;
+      border: 2px solid rgba(96, 106, 255);
       border-radius: 16px 0 0 16px;
       -moz-appearance: textfield;
 

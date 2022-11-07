@@ -92,8 +92,8 @@
       <div class="chart-block__chart">
         <chart
           :items="items"
-          :swappedItem="swappedItem"
-          :choosenItem="choosenItem"
+          :swappedItemIndex="swappedItemIndex"
+          :choosenItemIndex="choosenItemIndex"
         />
       </div>
     </div>
@@ -116,8 +116,8 @@ export default {
   },
   props: {
     itemsNumber: Number,
-    swappedItem: Number,
-    choosenItem: Number,
+    swappedItemIndex: Number,
+    choosenItemIndex: Number,
     delay: Number,
     isFinished: Boolean,
     step: Object,

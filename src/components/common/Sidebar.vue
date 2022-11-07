@@ -5,12 +5,19 @@
   >
     <div
       class="sidebar__icon"
-      :class="[
-        { 'sidebar__icon-cross': isOpened },
-        { 'sidebar__icon-list': !isOpened }
-      ]"
       @click="toggleSidebar"
-    />
+    >
+      <div
+        class="icon"
+        :class="[
+          { 'icon__cross': isOpened },
+          { 'icon__list': !isOpened }
+        ]"
+      />
+    </div>
+    <div class="sidebar__title">
+      Sort Helper
+    </div>
     <div
       class="sidebar__list"
     >
@@ -53,41 +60,72 @@ export default {
   left: 0;
   height: 100%;
   backdrop-filter: blur(2px);
-  background-color: rgba(255, 255, 255, 0.8);
-  transition: 0.2s all ease-in-out;
+  background-color: rgba(238, 238, 238, 0.9);
+  box-shadow: 5px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  transition: 0.2s all ease-out;
   z-index: 9999;
 
   &.sidebar_closed {
     left: -322px;
+
+    .sidebar__icon {
+      background-color: transparent;
+    }
   }
 
 
   .sidebar__icon {
     position: absolute;
     right: -64px;
-    top: 32px;
-    padding: 8px;
-    width: 24px;
-    height: 24px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    mask-size: cover;
-    mask-repeat: no-repeat;
-    mask-size: cover;
+    top: 0;
+    padding: 16px;
+    border-radius: 0 0 8px 0;
+    background-color: rgba(238, 238, 238, 0.9);
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
     cursor: pointer;
+    transition: 0.2s all;
 
-    &.sidebar__icon-cross {
-      mask-image: url(@/assets/svg/cross.svg);
-      -webkit-mask-image: url(@/assets/svg/cross.svg);
-      background-color: rgb(0, 0, 0);
+    &:hover {
+      background-color: rgba(96, 107, 255);
+
+      .icon {
+        background-color: rgb(255, 255, 255);
+      }
     }
 
-    &.sidebar__icon-list {
-      mask-image: url(@/assets/svg/list.svg);
-      -webkit-mask-image: url(@/assets/svg/list.svg);
+    .icon {
+      width: 32px;
+      height: 32px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      mask-size: cover;
+      mask-repeat: no-repeat;
+      mask-size: cover;
       background-color: rgb(0, 0, 0);
+      transition: 0.2s all;
+
+      &.icon__cross {
+        mask-image: url(@/assets/svg/cross.svg);
+        -webkit-mask-image: url(@/assets/svg/cross.svg);
+      }
+
+      &.icon__list {
+        mask-image: url(@/assets/svg/list.svg);
+        -webkit-mask-image: url(@/assets/svg/list.svg);
+      }
     }
+  }
+
+  .sidebar__title {
+    padding: 32px 0;
+    color: rgb(255, 255, 255);
+    background: rgb(96, 107, 255);
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
   }
 
   .sidebar__list {

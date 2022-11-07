@@ -2,8 +2,8 @@
   <chart-block
     id="selection-sort"
     :itemsNumber="itemsNumber"
-    :swappedItem="swappedItem"
-    :choosenItem="choosenItem"
+    :swappedItemIndex="swappedItemIndex"
+    :choosenItemIndex="choosenItemIndex"
     :delay="delay"
     :isFinished="isFinished"
     @sortStart="selectionSort"
@@ -54,8 +54,8 @@ export default {
   },
   data () {
     return {
-      swappedItem: null,
-      choosenItem: null,
+      swappedItemIndex: null,
+      choosenItemIndex: null,
       step: {
         i: 0,
         j: 1,
@@ -68,8 +68,8 @@ export default {
   },
   methods: {
     resetActiveItem () {
-      this.swappedItem = null
-      this.choosenItem = null
+      this.swappedItemIndex = null
+      this.choosenItemIndex = null
       this.minItemIndex = null
       this.step = {
         i: 0,
@@ -97,7 +97,7 @@ export default {
     },
 
     selectionSortStep (items) {
-      this.choosenItem = items[this.step.j]
+      this.choosenItemIndex = this.step.j
 
       if (!this.minItemIndex) {
         this.minItemIndex = this.step.i
@@ -112,16 +112,17 @@ export default {
       if (this.step.j >= items.length) {
         this.step.j = this.step.i + 1
         if (this.step.i != this.minItemIndex) {
-          this.swappedItem = items[this.minItemIndex]
+          this.swappedItemIndex = this.minItemIndex
           
+          let temp = items[this.minItemIndex]
           items[this.minItemIndex] = items[this.step.i]
-          items[this.step.i] = this.swappedItem
+          items[this.step.i] = temp
         }
         
         this.step.i++
         this.minItemIndex = this.step.i
         if (this.step.i >= items.length) {
-          this.isFinished = true
+          this.selectionSortStop()
         }
       }
     },

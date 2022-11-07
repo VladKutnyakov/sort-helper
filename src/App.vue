@@ -33,10 +33,14 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Noto Sans', sans-serif;
+html {
+  scroll-behavior: smooth;
+  
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+  }
 }
 </style>
