@@ -92,7 +92,6 @@ export default {
       this.isFinished = true
     },
 
-    // TODO: Доделать
     insertionSortStep (items) {
       if (this.step.i < items.length) {
         if (this.isLowerItemFound) {
