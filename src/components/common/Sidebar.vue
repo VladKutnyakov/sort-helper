@@ -77,9 +77,9 @@ export default {
   .sidebar__icon {
     position: absolute;
     right: -64px;
-    top: 0;
+    top: 8px;
     padding: 16px;
-    border-radius: 0 0 8px 0;
+    border-radius: 8px;
     background-color: rgba(238, 238, 238, 0.9);
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
     cursor: pointer;
@@ -94,8 +94,8 @@ export default {
     }
 
     .icon {
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
       background-size: cover;
       background-repeat: no-repeat;
       mask-repeat: no-repeat;

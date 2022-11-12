@@ -1,13 +1,14 @@
 <template>
   <chart-block
-    id="selection-sort"
+    id="quick-sort"
     :itemsNumber="itemsNumber"
-    :coloredItems="coloredItems"
+    :redItemIndex="swappedItemIndex"
+    :blueItemIndex="choosenItemIndex"
     :delay="delay"
     :isFinished="isFinished"
-    @sortStart="selectionSort"
-    @sortStop="selectionSortStop"
-    @sortStep="selectionSortStep"
+    @sortStart="quickSort"
+    @sortStop="quickSortStop"
+    @sortStep="quickSortStep"
     @onShuffle="resetActiveItem"
   >
     <template #title>
@@ -22,7 +23,7 @@
     <template #source-code>
       <code>
         <pre>
-function selectionSort(array) {
+function quickSort(array) {
     for (let i = 0; i &lt; array.length; i++) {
         let min = i;
         for (let j = i + 1; j &lt; array.length; j++) {
@@ -47,16 +48,14 @@ function selectionSort(array) {
 import ChartBlock from '@/components/ChartBlock.vue'
 
 export default {
-  name: 'ChartBlockSelection',
+  name: 'ChartBlockQuick',
   components: {
     ChartBlock,
   },
   data () {
     return {
-      coloredItems: {
-        red: null,
-        blue: null,
-      },
+      swappedItemIndex: null,
+      choosenItemIndex: null,
       step: {
         i: 0,
         j: 1,
@@ -69,10 +68,8 @@ export default {
   },
   methods: {
     resetActiveItem () {
-      this.coloredItems = {
-        red: null,
-        blue: null,
-      },
+      this.swappedItemIndex = null
+      this.choosenItemIndex = null
       this.minItemIndex = null
       this.step = {
         i: 0,
@@ -86,48 +83,21 @@ export default {
       })
     },
 
-    async selectionSort (items, delay) {
+    async quickSort (items, delay) {
       this.isFinished = false
 
       while (!this.isFinished) {
-        this.selectionSortStep(items)
+        this.quickSortStep(items)
         await this.sleep(delay)
       }
     },
 
-    selectionSortStop () {
+    quickSortStop () {
       this.isFinished = true
     },
 
-    selectionSortStep (items) {
-      this.coloredItems.blue = this.step.j
-
-      if (!this.minItemIndex) {
-        this.minItemIndex = this.step.i
-      }
-
-      if (items[this.minItemIndex] > items[this.step.j]) {
-          this.minItemIndex = this.step.j
-      }
-
-      this.step.j++
-
-      if (this.step.j >= items.length) {
-        this.step.j = this.step.i + 1
-        if (this.step.i != this.minItemIndex) {
-          this.coloredItems.red = this.minItemIndex
-          
-          let temp = items[this.minItemIndex]
-          items[this.minItemIndex] = items[this.step.i]
-          items[this.step.i] = temp
-        }
-        
-        this.step.i++
-        this.minItemIndex = this.step.i
-        if (this.step.i >= items.length) {
-          this.selectionSortStop()
-        }
-      }
+    quickSortStep (items) {
+     
     },
   },
 }

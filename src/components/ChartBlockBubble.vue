@@ -2,8 +2,7 @@
   <chart-block
     id="bubble-sort"
     :itemsNumber="itemsNumber"
-    :swappedItemIndex="swappedItemIndex"
-    :choosenItemIndex="choosenItemIndex"
+    :coloredItems="coloredItems"
     :delay="delay"
     :isFinished="isFinished"
     @sortStart="bubbleSort"
@@ -51,8 +50,10 @@ export default {
   },
   data () {
     return {
-      swappedItemIndex: null,
-      choosenItemIndex: null,
+      coloredItems: {
+        red: null,
+        blue: null,
+      },
       step: {
         i: 0,
         j: 0,
@@ -64,8 +65,10 @@ export default {
   },
   methods: {
     resetActiveItem () {
-      this.swappedItemIndex = null
-      this.choosenItemIndex = null
+      this.coloredItems = {
+        red: null,
+        blue: null,
+      },
       this.step = {
         i: 0,
         j: 0,
@@ -92,10 +95,10 @@ export default {
     },
 
     bubbleSortStep (items) {
-      this.choosenItemIndex = this.step.j
+      this.coloredItems.blue = this.step.j
 
       if (items[this.step.j] > items[this.step.j + 1]) {
-        this.swappedItemIndex = this.step.j + 1
+        this.coloredItems.red = this.step.j + 1
 
         let temp = items[this.step.j]
         items[this.step.j] = items[this.step.j + 1]

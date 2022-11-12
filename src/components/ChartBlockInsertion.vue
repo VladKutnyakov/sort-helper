@@ -2,8 +2,7 @@
   <chart-block
     id="insertion-sort"
     :itemsNumber="itemsNumber"
-    :swappedItemIndex="swappedItemIndex"
-    :choosenItemIndex="choosenItemIndex"
+    :coloredItems="coloredItems"
     :delay="delay"
     :isFinished="isFinished"
     @sortStart="insertionSort"
@@ -48,8 +47,10 @@ export default {
   },
   data () {
     return {
-      swappedItemIndex: null,
-      choosenItemIndex: null,
+      coloredItems: {
+        red: null,
+        blue: null,
+      },
       step: {
         i: 1,
         j: 0,
@@ -63,8 +64,10 @@ export default {
   },
   methods: {
     resetActiveItem () {
-      this.swappedItemIndex = null
-      this.choosenItemIndex = null
+      this.coloredItems = {
+        red: null,
+        blue: null,
+      },
       this.isLowerItemFound = true
       this.currentItem = null
       this.step = {
@@ -95,17 +98,17 @@ export default {
     insertionSortStep (items) {
       if (this.step.i < items.length) {
         if (this.isLowerItemFound) {
-          this.choosenItemIndex = this.step.i
+          this.coloredItems.blue = this.step.i
           this.currentItem = items[this.step.i]
           this.step.j = this.step.i
           this.isLowerItemFound = false
         }
         if (this.step.j > 0 && items[this.step.j - 1] > this.currentItem) {
-          this.swappedItemIndex = this.step.j
+          this.coloredItems.red = this.step.j
           items[this.step.j] = items[this.step.j - 1]
           this.step.j--
         } else {
-          this.swappedItemIndex = this.step.j
+          this.coloredItems.red = this.step.j
           items[this.step.j] = this.currentItem
           this.step.i++
           this.isLowerItemFound = true

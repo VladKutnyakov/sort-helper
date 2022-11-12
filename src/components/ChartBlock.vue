@@ -92,8 +92,7 @@
       <div class="chart-block__chart">
         <chart
           :items="items"
-          :swappedItemIndex="swappedItemIndex"
-          :choosenItemIndex="choosenItemIndex"
+          :coloredItems="coloredItems"
         />
       </div>
     </div>
@@ -101,7 +100,7 @@
 </template>
 
 <script>
-import Chart from '@/components/Chart.vue'
+import Chart from '@/components/Chart/Chart.vue'
 import AppButton from '@/components/basic/AppButton.vue'
 import AppSpoiler from '@/components/basic/AppSpoiler.vue'
 import AppInputNumber from './basic/AppInputNumber.vue'
@@ -116,8 +115,7 @@ export default {
   },
   props: {
     itemsNumber: Number,
-    swappedItemIndex: Number,
-    choosenItemIndex: Number,
+    coloredItems: Object,
     delay: Number,
     isFinished: Boolean,
     step: Object,
