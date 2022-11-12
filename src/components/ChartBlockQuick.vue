@@ -2,8 +2,7 @@
   <chart-block
     id="quick-sort"
     :itemsNumber="itemsNumber"
-    :redItemIndex="swappedItemIndex"
-    :blueItemIndex="choosenItemIndex"
+    :coloredItems="coloredItems"
     :delay="delay"
     :isFinished="isFinished"
     @sortStart="quickSort"
@@ -12,31 +11,37 @@
     @onShuffle="resetActiveItem"
   >
     <template #title>
-      Сортировка выбором
+      Быстрая сортировка
     </template>
     <template #description>
-      Сортировка выбором является одним из простейших алгоритмов. Его суть — за каждый проход по массиву выбрать минимальный элемент (для сортировки по возрастанию) и поменять его местами с первым элементом в еще не отсортированном участке массива, тем самым уменьшив длину этого участка на один, и так до тех пор пока не будут отсортированы все элементы.
+      Быстрая сортировка — это “разделяй и властвуй” алгоритм в стиле “сортировка слиянием”. Основная идея заключается в том, чтобы найти опорный элемент в массиве для сравнения с остальными частями, затем сдвигать элементы так, чтобы все части перед опорным элементом были меньше его, а все элементы после опорного были больше его. После этого рекурсивно выполнить ту же операцию на элементы до и после опорного. <br> В языке JavaScript стандартный метод сортировки <i>sort()</i> реализует алгоритм быстрой сортировки.
     </template>
     <template #complexity>
-      O(n<sup>2</sup>)
+      O(n &#215; log n)
     </template>
     <template #source-code>
       <code>
         <pre>
-function quickSort(array) {
-    for (let i = 0; i &lt; array.length; i++) {
-        let min = i;
-        for (let j = i + 1; j &lt; array.length; j++) {
-            if (array[min] > array[j]) {
-                min = j;
-            }
-        }
-        if (i != min) {
-          let temp = array[i]
-          array[i] = array[min]
-          array[min] = temp
-        }
+function quickSort(array, start, end) {
+  if (start === undefined) {
+    start = 0
+    end = array.length - 1
+  } else if (start >= end) {
+    return array
+  }
+  let rStart = start, rEnd = end
+  let pivot = array[Math.floor(Math.random() * (end - start + 1) + start)]
+  while (start &lt; end) {
+    while (array[start] &lt;= pivot) start++
+    while (array[end] > pivot) end--
+    if (start &lt; end) {
+      let temp = array[start]
+      array[start] = array[end]
+      array[end] = temp
     }
+  }
+  quickSort(array, rStart, start - 1)
+  quickSort(array, start, rEnd)
 }
         </pre>
       </code>
@@ -45,7 +50,7 @@ function quickSort(array) {
 </template>
 
 <script>
-import ChartBlock from '@/components/ChartBlock.vue'
+import ChartBlock from '@/components/ChartBlock'
 
 export default {
   name: 'ChartBlockQuick',
@@ -54,8 +59,11 @@ export default {
   },
   data () {
     return {
-      swappedItemIndex: null,
-      choosenItemIndex: null,
+      coloredItems: {
+        red: null,
+        blue: null,
+        green: null,
+      },
       step: {
         i: 0,
         j: 1,
@@ -68,8 +76,11 @@ export default {
   },
   methods: {
     resetActiveItem () {
-      this.swappedItemIndex = null
-      this.choosenItemIndex = null
+      this.coloredItems = {
+        red: null,
+        blue: null,
+        green: null,
+      },
       this.minItemIndex = null
       this.step = {
         i: 0,
@@ -96,8 +107,27 @@ export default {
       this.isFinished = true
     },
 
-    quickSortStep (items) {
-     
+    quickSortStep (items, start, end) {
+      if (start === undefined) {
+        start = 0
+        end = items.length - 1
+      } else if (start >= end) {
+        this.isFinished = true
+        return items
+      }
+      let rStart = start, rEnd = end
+      let pivot = items[Math.floor(Math.random() * (end - start + 1) + start)]
+      while (start < end) {
+        while (items[start] <= pivot) start++
+        while (items[end] > pivot) end--
+        if (start < end) {
+          let temp = items[start]
+          items[start] = items[end]
+          items[end] = temp
+        }
+      }
+      this.quickSortStep(items, rStart, start - 1)
+      this.quickSortStep(items, start, rEnd)
     },
   },
 }

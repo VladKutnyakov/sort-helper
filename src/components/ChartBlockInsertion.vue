@@ -23,13 +23,13 @@
       <code>
         <pre>
 for (let i = 1, l = array.length; i &lt; l; i++) {
-    const current = array[i];
-    let j = i;
+    const current = array[i]
+    let j = i
     while (j > 0 &#38;&#38; array[j - 1] > current) {
-        array[j] = array[j - 1];
-        j--;
+        array[j] = array[j - 1]
+        j--
     }
-    array[j] = current;
+    array[j] = current
 }
         </pre>
       </code>
@@ -38,7 +38,7 @@ for (let i = 1, l = array.length; i &lt; l; i++) {
 </template>
 
 <script>
-import ChartBlock from '@/components/ChartBlock.vue'
+import ChartBlock from '@/components/ChartBlock'
 
 export default {
   name: 'ChartBlockInsertion',

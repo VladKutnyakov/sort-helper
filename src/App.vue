@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import DefaultLayout from "@/layouts/Default.vue";
-import EmptyLayout from "@/layouts/Empty.vue";
+import DefaultLayout from "@/layouts/Default";
+import EmptyLayout from "@/layouts/Empty";
 
 export default {
   name: 'App',

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ChartItem from '@/components/Chart/ChartItem.vue'
+import ChartItem from '@/components/chart/ChartItem'
 
 export default {
   name: 'Chart',

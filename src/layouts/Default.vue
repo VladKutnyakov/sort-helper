@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Sidebar from '@/components/common/Sidebar.vue'
-import Footer from '@/components/common/Footer.vue'
+import Sidebar from '@/components/common/Sidebar'
+import Footer from '@/components/common/Footer'
 
 export default {
   name: 'DefaultLayout',

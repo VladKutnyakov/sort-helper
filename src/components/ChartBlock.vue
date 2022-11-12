@@ -100,10 +100,10 @@
 </template>
 
 <script>
-import Chart from '@/components/Chart/Chart.vue'
-import AppButton from '@/components/basic/AppButton.vue'
-import AppSpoiler from '@/components/basic/AppSpoiler.vue'
-import AppInputNumber from './basic/AppInputNumber.vue'
+import Chart from '@/components/chart/Chart'
+import AppButton from '@/components/basic/AppButton'
+import AppSpoiler from '@/components/basic/AppSpoiler'
+import AppInputNumber from './basic/AppInputNumber'
 
 export default {
   name: 'ChartBlock',

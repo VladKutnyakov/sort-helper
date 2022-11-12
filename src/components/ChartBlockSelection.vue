@@ -24,10 +24,10 @@
         <pre>
 function selectionSort(array) {
     for (let i = 0; i &lt; array.length; i++) {
-        let min = i;
+        let min = i
         for (let j = i + 1; j &lt; array.length; j++) {
             if (array[min] > array[j]) {
-                min = j;
+                min = j
             }
         }
         if (i != min) {
@@ -44,7 +44,7 @@ function selectionSort(array) {
 </template>
 
 <script>
-import ChartBlock from '@/components/ChartBlock.vue'
+import ChartBlock from '@/components/ChartBlock'
 
 export default {
   name: 'ChartBlockSelection',

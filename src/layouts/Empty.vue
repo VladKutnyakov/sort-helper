@@ -14,6 +14,8 @@ export default {
 
 <style lang="scss">
 .empty-layout {
+  min-height: 100vh;
+  background: rgb(238, 238, 238);
 
   .content {
     padding: 5%;

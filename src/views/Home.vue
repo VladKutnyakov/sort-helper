@@ -3,20 +3,23 @@
     <chart-block-bubble />
     <chart-block-selection />
     <chart-block-insertion />
+    <chart-block-quick />
   </div>
 </template>
 
 <script>
-import ChartBlockBubble from '@/components/ChartBlockBubble.vue'
-import ChartBlockSelection from '@/components/ChartBlockSelection.vue'
-import ChartBlockInsertion from '@/components/ChartBlockInsertion.vue'
+import ChartBlockBubble from '@/components/ChartBlockBubble'
+import ChartBlockSelection from '@/components/ChartBlockSelection'
+import ChartBlockInsertion from '@/components/ChartBlockInsertion'
+import ChartBlockQuick from '@/components/ChartBlockQuick'
 
 export default {
   name: 'Home',
   components: {
     ChartBlockBubble,
     ChartBlockSelection,
-    ChartBlockInsertion
+    ChartBlockInsertion,
+    ChartBlockQuick,
   },
 }
 </script>

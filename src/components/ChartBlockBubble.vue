@@ -26,13 +26,13 @@ function bubbleSort(array) {
   for (let i = 0; i &lt; array.length; i++) {
     for (let j = 0; j &lt; array.length; j++) {
       if (array[j] > array[j + 1]) {
-        let temp = array[j];
-        array[j] = array[j + 1];
-        array[j + 1] = temp;
+        let temp = array[j]
+        array[j] = array[j + 1]
+        array[j + 1] = temp
       }
     }
   }
-  return array;
+  return array
 }
         </pre>
       </code>
@@ -41,7 +41,7 @@ function bubbleSort(array) {
 </template>
 
 <script>
-import ChartBlock from '@/components/ChartBlock.vue'
+import ChartBlock from '@/components/ChartBlock'
 
 export default {
   name: 'ChartBlockBubble',
