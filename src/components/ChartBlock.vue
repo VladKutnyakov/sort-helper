@@ -175,6 +175,10 @@ export default {
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   transition: 0.2s all;
 
+  &:last-child {
+    margin: 0;
+  }
+
   &:hover {
     box-shadow: 0px 5px 15px 7px rgba(34, 60, 80, 0.2);
   }

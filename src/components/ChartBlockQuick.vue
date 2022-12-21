@@ -29,11 +29,14 @@ function quickSort(array, start, end) {
   } else if (start >= end) {
     return array
   }
-  let rStart = start, rEnd = end
+  let rStart = start
+  let rEnd = end
   let pivot = array[Math.floor(Math.random() * (end - start + 1) + start)]
   while (start &lt; end) {
-    while (array[start] &lt;= pivot) start++
-    while (array[end] > pivot) end--
+    while (array[start] &lt;= pivot)
+      start++
+    while (array[end] > pivot)
+      end--
     if (start &lt; end) {
       let temp = array[start]
       array[start] = array[end]
@@ -115,11 +118,16 @@ export default {
         this.isFinished = true
         return items
       }
-      let rStart = start, rEnd = end
+      let rStart = start
+      let rEnd = end
       let pivot = items[Math.floor(Math.random() * (end - start + 1) + start)]
       while (start < end) {
-        while (items[start] <= pivot) start++
-        while (items[end] > pivot) end--
+        while (items[start] <= pivot) {
+          start++
+        }
+        while (items[end] > pivot) {
+          end--
+        }
         if (start < end) {
           let temp = items[start]
           items[start] = items[end]
